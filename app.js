@@ -5,7 +5,7 @@ let xPositions = [];
 let oPositions = [];
 let numMoves = 0;
 const MAX_MOVES = 9;
-let winner = "IT'S A TIE!";
+let winner;
 
 const winningPositions = [
     [0, 1, 2],
@@ -26,54 +26,44 @@ function checkWinners() {
 
         if (xWins) {
             winner = "X WINS!";
-            return true;
+            break;
         } else if (oWins) {
             winner = "O WINS!";
-            return true;
+            break;
         }
     }
 }
 
-// TODO make sure no one has clicked the space yet (return boolean)
-function checkIfClicked() {
-    console.log('not clicked')
-}
 
-function handleClick (space) {
+function handleClick(space) {
 
-    // // kill game and call it a tie if no one has one and all the spaces have been filled
-    // if (numMoves >=MAX_MOVES) {
-    //     info.innerText = winner;
-    //     return;
-    // }
+    if (numMoves < MAX_MOVES) {
 
-    const position = parseInt(space.id.substring(space.id.length - 1));
+        // check for winner
+        checkWinners();
 
-    // first, check to make sure there are no duplicate moves
-    if (!xPositions.includes(position) && !oPositions.includes(position)) {
-        // even moves are X's and odd moves are O's (x gets 0th move)
-        if (numMoves % 2 === 0) {
-            space.innerText = "X"
-            currentTurn = "O"
-            info.innerText = `It's ${currentTurn}'s turn.`
-            xPositions.push(position)
-        } else {
-            space.innerText = "O"
-            currentTurn = "X"
-            info.innerText = `It's ${currentTurn}'s turn.`
-            oPositions.push(position)
+        const position = parseInt(space.id.substring(space.id.length - 1));
+
+        // first, check to make sure there are no duplicate moves
+        if (!xPositions.includes(position) && !oPositions.includes(position)) {
+
+            // even moves are X's and odd moves are O's (x gets 0th move)
+            if (numMoves % 2 === 0) {
+                space.innerText = "X"
+                currentTurn = "O"
+                info.innerText = `It's ${currentTurn}'s turn.`
+                xPositions.push(position)
+            } else {
+                space.innerText = "O"
+                currentTurn = "X"
+                info.innerText = `It's ${currentTurn}'s turn.`
+                oPositions.push(position)
+            }
+            numMoves++;
         }
-
-        numMoves++;
-    }
-
-
-    // check if there's a winner and exit if there is
-    if (checkWinners() || numMoves >=MAX_MOVES) {
+    } else {
         info.innerText = winner;
-        return;
     }
-
     console.log(numMoves);
 }
 
@@ -82,11 +72,10 @@ function init() {
     // set initial game info (X goes first)
     info.innerText = `It's X's turn.`;
 
-    // listen for clicks on any div within the game
     game.addEventListener("click", function (event) {
-            handleClick(event.target);
+        handleClick(event.target);
     })
-}
 
+};
 
 init();
