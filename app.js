@@ -40,6 +40,7 @@ function handleClick(space) {
     // check for winner
     checkWinners();
 
+    // check that we still have moves left and there's no winner yet
     if (numMoves < MAX_MOVES && winner === `It's a tie.`) {
 
 
