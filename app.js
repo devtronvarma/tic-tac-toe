@@ -5,7 +5,7 @@ let xPositions = [];
 let oPositions = [];
 let numMoves = 0;
 const MAX_MOVES = 9;
-let winner;
+let winner = `It's a tie.`;
 
 const winningPositions = [
     [0, 1, 2],
@@ -37,10 +37,11 @@ function checkWinners() {
 
 function handleClick(space) {
 
-    if (numMoves < MAX_MOVES) {
+    // check for winner
+    checkWinners();
 
-        // check for winner
-        checkWinners();
+    if (numMoves < MAX_MOVES && winner === `It's a tie.`) {
+
 
         const position = parseInt(space.id.substring(space.id.length - 1));
 
