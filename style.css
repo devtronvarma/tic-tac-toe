@@ -13,7 +13,8 @@ body {
     text-align: center;
 }
 
-.game-info {
+.game-info,
+.winner-info {
     text-align: center;
 }
 

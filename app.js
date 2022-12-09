@@ -1,5 +1,6 @@
 let game = document.querySelector(".game");
 let info = document.querySelector(".game-info");
+let winnerInfo = document.querySelector(".winner-info");
 let currentTurn = "";
 let xPositions = [];
 let oPositions = [];
@@ -64,7 +65,8 @@ function handleClick(space) {
             numMoves++;
         }
     } else {
-        info.innerText = winner;
+        winnerInfo.innerText = winner;
+        return;
     }
     console.log(numMoves);
 }
